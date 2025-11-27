@@ -164,4 +164,4 @@ if (typeof document !== "undefined") {
   });
 }
 
-export { shuffle, titleCase, setup, WEAPONS, ROOMS, KILLERS };
+// export { shuffle, titleCase, setup, WEAPONS, ROOMS, KILLERS };
