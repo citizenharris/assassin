@@ -1,4 +1,12 @@
-const WEAPONS = [
+interface Plot {
+  victim: string;
+  weapon: string;
+  room: string;
+}
+
+type Plots = Record<string, Plot>;
+
+const WEAPONS: readonly string[] = [
   "another assassin's mobile phone (not yours)",
   "some butter (in or out of wrapper)",
   "a teapot or cafetierre (If one not available, jug of water)",
@@ -26,7 +34,7 @@ const WEAPONS = [
   "a notebook",
 ];
 
-const ROOMS = [
+const ROOMS: readonly string[] = [
   "the sitting room",
   "the sitting room",
   "the sitting room",
@@ -53,7 +61,7 @@ const ROOMS = [
   "next to a fireplace (outside included)",
 ];
 
-const KILLERS = [
+const KILLERS: readonly string[] = [
   "Kish H",
   "Maulik",
   "Dhiraj",
@@ -79,23 +87,27 @@ const KILLERS = [
   "Aarti",
 ];
 
-function shuffle(array) {
+const shuffle = <T>(array: readonly T[]): T[] => {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
-}
+};
 
-function titleCase(str) {
+const titleCase = (str: string) => {
   return str
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
-}
+};
 
-function setup(killers, weapons, rooms) {
+const setup = (
+  killers: readonly string[],
+  weapons: readonly string[],
+  rooms: readonly string[],
+) => {
   const shuffledKillers = shuffle(killers);
   const shuffledWeapons = shuffle(weapons);
   const shuffledRooms = shuffle(rooms);
@@ -105,7 +117,7 @@ function setup(killers, weapons, rooms) {
     ...shuffledKillers.slice(0, -1),
   ];
 
-  const plots = {};
+  const plots: Plots = {};
   for (let i = 0; i < shuffledKillers.length; i++) {
     plots[shuffledKillers[i]] = {
       victim: victims[i],
@@ -115,15 +127,15 @@ function setup(killers, weapons, rooms) {
   }
 
   return plots;
-}
+};
 
 let plots = setup(KILLERS, WEAPONS, ROOMS);
 
-function chooseVictim() {
-  const nameInput = document.getElementById("name");
-  const errorDiv = document.getElementById("error");
-  const resultDiv = document.getElementById("result");
-  const assignmentDiv = document.getElementById("assignment");
+const chooseVictim = () => {
+  const nameInput = document.getElementById("name") as HTMLInputElement;
+  const errorDiv = document.getElementById("error") as HTMLDivElement;
+  const resultDiv = document.getElementById("result") as HTMLDivElement;
+  const assignmentDiv = document.getElementById("assignment") as HTMLDivElement;
 
   const playerName = titleCase(nameInput.value.trim());
 
@@ -149,19 +161,20 @@ Write this down and do not tell anyone!
       "This name is not in the list! Remember to use your full first name, no nicknames.";
     resultDiv.classList.remove("show");
   }
-}
+};
 
-function clearResult() {
-  const resultDiv = document.getElementById("result");
+const clearResult = () => {
+  const resultDiv = document.getElementById("result") as HTMLDivElement;
   resultDiv.classList.remove("show");
 }
 
 if (typeof document !== "undefined") {
-  document.getElementById("name").addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
-      chooseVictim();
-    }
-  });
+  const nameInput = document.getElementById("name");
+  if (nameInput) {
+    nameInput.addEventListener("keypress", (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        chooseVictim();
+      }
+    });
+  }
 }
-
-export { shuffle, titleCase, setup, WEAPONS, ROOMS, KILLERS };

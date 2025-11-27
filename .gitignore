@@ -238,7 +238,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist # NOTE: dist is unignored
 
 # Gatsby files
 .cache/
