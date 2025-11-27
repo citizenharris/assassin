@@ -33,7 +33,6 @@ h1 {
 .rules {
   margin-bottom: 30px;
   line-height: 1.6;
-  white-space: pre-line;
 }
 
 .input-group {
@@ -99,4 +98,28 @@ button:hover {
 
 .clear-btn:hover {
   background: #cc0000;
+}
+
+.rules-title {
+  margin-bottom: 10px;
+}
+
+.rules-content ol {
+  padding-left: 10px;
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.rules-content li {
+  margin-bottom: 40px;
+  padding-left: 5px;
+  display: list-item;
+}
+
+.rules-content li::marker {
+  display: inline;
+}
+
+.encouragement {
+  margin-top: 10px;
 }
